@@ -66,12 +66,7 @@ class MainActivity : AppCompatActivity() {
     )
     private var currentDessert = allDesserts[0]
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        Log.d(TAG,"onSavedInstanceState Called")
-        outState.putInt(KEY_REVENUE,revenue)
-        outState.putInt(KEY_DESSERT_SOLD,dessertsSold)
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG,"OnCreate Called")
@@ -92,12 +87,19 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState!=null){
             revenue = savedInstanceState.getInt(KEY_REVENUE,0)
             dessertsSold = savedInstanceState.getInt(KEY_DESSERT_SOLD,0)
+            showCurrentDessert()
         }
     }
 
     /**
      * Updates the score when the dessert is clicked. Possibly shows a new dessert.
      */
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.d(TAG,"onSavedInstanceState Called")
+        outState.putInt(KEY_REVENUE,revenue)
+        outState.putInt(KEY_DESSERT_SOLD,dessertsSold)
+    }
     private fun onDessertClicked() {
 
         // Update the score
@@ -188,4 +190,5 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         Log.d(TAG,"onDestroy Called")
     }
+
 }
